@@ -21,7 +21,7 @@
 
 1. Download a code editor like VSCode (this is a very important step)
 2. Install [Node.js](https://nodejs.org/) on your system
-3. Clone this repository or download and extract [this ZIP file](https://github.com/isaackogan/TikMorph/archive/refs/heads/master.zip)
+3. Clone this repository or download and extract [this ZIP file](https://github.com/smailiukas/TikMorph/archive/refs/heads/main.zip)
 4. Open a console/terminal in the root directory of the project
 5. Enter `npm install` to install all required dependencies
 6. Go to the public directory and change config.json uniqueId to yours or someone elses tiktok uniqueId without the @ so basically it should look like this "streamer" and not "@streamer"
