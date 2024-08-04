@@ -1,0 +1,32 @@
+{
+
+    "uniqueId": "",
+    "fontSize": 64,
+    "fontWeight": 800,
+    "fadeIn": 2000,
+    "fadeOut": 2000,
+    "fadeAfter": 5000,
+    "textColour": "#ffffff",
+    "nameColour": "#ec305f",
+  
+    "sounds": {
+      "gift": {
+        "rose": "/sounds/plop.wav",
+        "default": null
+      },
+      "subscribe": "/sounds/plop.wav",
+      "follow": "/sounds/plop.wav"
+    },
+  
+    "enabled": {
+      "gift": true,
+      "subscribe": false,
+      "follow": true
+    },
+  
+    "firstFollowOnly": true,
+  
+    "volume": 0.2
+  
+  }
+  
