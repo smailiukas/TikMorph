@@ -1,0 +1,22 @@
+.alertContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 4rem;
+}
+
+.alertText {
+    color: white;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 0 1px #000, 0 0 2px #000, 0 0 3px #000, 0 0 4px #000, 0 0 5px #000;
+}
+
+.alertImage {
+    width: 18.75rem;
+    height: 18.75rem;
+}

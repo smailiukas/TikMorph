@@ -1,0 +1,16 @@
+:root {
+    --background-clr: #191919;
+    --backgrokund-dark-clr: #121212;
+
+    /* Buttons */
+    --button-clr: #ef2950;
+    --button-hover-clr: #d62549;
+
+    /* Text */
+    --text-primary-clr: #fff;
+    --text-secondary-clr: #ef2950;
+
+    /* Comments */
+    --username-clr: #a3a3a3;
+    --message-text-clr: #fff;
+}

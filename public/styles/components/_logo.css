@@ -1,0 +1,14 @@
+.logo {
+    margin-bottom: 1.25rem;
+}
+
+.logo__text {
+    font-size: 1.8rem;
+    text-decoration: none;
+    color: var(--text-primary-clr);
+}
+
+.logo__hightlight {
+    color: var(--text-secondary-clr);
+}
+

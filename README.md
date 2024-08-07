@@ -31,7 +31,7 @@ p.s if it doesn't load chats/gifts or alerts be sure to check the developer cons
 
 ## Preview
 * At the moment I'm using TikTok colors (some are changed)
-![Alt text](./preview/chrome_4ltOjdMxvj.png "preview")
+![Alt text](./preview/homepage.webp "preview")
 
 ### Patch 0.0.1
 * It still doesn't support generating overlays

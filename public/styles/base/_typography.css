@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+
+h1 {
+    font-size: 1.8em;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+a, #roomStats {
+    color: var(--text-secondary-clr);
+}
+
+#roomStats b {
+    color: var(--text-primary-clr);
+}

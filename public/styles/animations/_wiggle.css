@@ -1,0 +1,16 @@
+@-webkit-keyframes wiggle {
+    50% {
+        -webkit-transform: rotate(-4deg) scale(1.1);
+    }
+}
+
+@keyframes wiggle {
+    50% {
+        transform: rotate(-4deg) scale(1.1);
+    }
+}
+
+.wiggle {
+    animation: wiggle 0.5s infinite;
+    -webkit-animation: wiggle 0.5s infinite;
+}
