@@ -10,20 +10,22 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
     <script src="logging.js"></script>
-    <link rel="stylesheet" href="./styles/layout.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    <!-- <link rel="stylesheet" href="./styles/layout.css"> -->
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 </head>
 <body>
-    <div id="sidebar">
-        <h1>Tik<b>Morph</b></h1>
-        <button onclick="loadData('setup')">Setup</button>
-        <button onclick="loadData('tiktok')">TikTok Chat & Gifts</button>
-        <button onclick="loadData('alerts')">Alerts</button>
-
-    </div>
-    <div id="content">
+    <header id="sidebar">
+        <div class="logo">
+            <a class="logo__text" href="/">Tik<b class="logo__hightlight">Morph</b></a>
+        </div>
+        <button class="btn" onclick="loadData('setup')">Setup</button>
+        <button class="btn" onclick="loadData('tiktok')">TikTok Chat & Gifts</button>
+        <button class="btn" onclick="loadData('alerts')">Alerts</button>
+    </header>
+    <main id="content">
         <h2>Landing page (Coming soon)</h2>
         <p>Click a button to load data.</p>
-    </div>
+    </main>
 </body>
 </html>

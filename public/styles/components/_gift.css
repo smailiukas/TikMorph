@@ -1,0 +1,50 @@
+.splitchattable,
+.splitstatetable {
+    width: 100%;
+}
+
+.splitstatetable td {
+    width: 50%;
+}
+
+.containerheader {
+    text-align: start;
+    color: white;
+}
+
+/* 
+.chatcontainer,
+.giftcontainer,
+.eventcontainer {
+    word-wrap: break-word;
+} */
+
+.eventcontainer {
+    height: calc(100vh - 5.625rem);
+}
+
+.chatcontainer {
+    min-width: 20vw;
+    max-width: calc(100vw - 26rem);
+}
+
+.giftcontainer {
+    min-width: 20vw;
+}
+
+.messages-received, .gifts-received {
+    overflow-y: scroll;
+    min-width: 20vw;
+    max-height: 60vh;
+    word-wrap: break-word;
+    height: calc(100vh - 15rem);
+    background-color: var(--backgrokund-dark-clr);
+    border-radius: 0.313rem;
+    padding: 0.625rem;
+}
+
+.gifticon {
+    height: 3.125rem;
+    width: 3.125rem;
+    margin-right: 0.625rem;
+}
