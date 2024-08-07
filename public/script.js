@@ -1,63 +1,21 @@
-const socket = io();
-
-function loadData(type) {
-    socket.emit('requestData', { type: type });
-}
-
 // For checking and not playing alert sounds when they're not needed (since it can get hella annoying ffs)
 let soundMode = false;
 let statsMode = false;
 
 // Needed variables that shouldn't be documented but whatever
 const followed = {}
+let viewerCount = 0;
+let likeCount = 0;
+let diamondsCount = 0;
 
-/**
- * Very junky code and it must be fixed asap (this was an option to get the prototype up and working)
- */
-socket.on('responseData', (data) => {
-    const content = document.getElementById('content');
-    switch(data) {
-        case "Alerts Data": {
-            soundMode = true;
-            statsMode = false;
-            content.innerHTML = `
-            <h1>Preview</h1><br>
-            <div class="mainContainer">
-                <div class="current"></div>
-            </div>
-            `;
-            break;
-        }
-        case "TikTok Chat & Gifts Data": {
-            soundMode = false;
-            statsMode = true;
-            content.innerHTML = `<table class="splitchattable">
-            <tr>
-                <td>
-                    <div class="chatcontainer">
-                        <h3 class="containerheader">
-                        Live Chat
-                        <a href="#" onclick="generateOverlay()">Generate Overlay URL</a>
-                        </h3>
-                    </div>
-                </td>
-                <td>
-                    <div class="giftcontainer">
-                        <h3 class="containerheader">
-                        Gifts
-                        <a href="#" onclick="generateOverlay()">Generate Overlay URL</a></h3>
-                    </div>
-                </td>
-            </tr>
-        </table>`;
-            break;
-        }
-    }
-});
 
 // Demo code so I wouldn't forget to add this part later on
 function generateOverlay() {
     alert("This version of TikMorph does not support overlays yet :(");
+}
+
+function updateRoomStats() {
+    $('#roomStats').html(`Viewers: <b>${viewerCount.toLocaleString()}</b> Likes: <b>${likeCount.toLocaleString()}</b> Earned from gifts: <b>${diamondsCount.toLocaleString()}</b>`)
 }
 
 /**
@@ -121,8 +79,67 @@ class TikTokIOConnection {
     }
 }
 
-
 let connection = new TikTokIOConnection();
+
+function loadData(type) {
+    connection.socket.emit('requestData', { type: type });
+}
+
+/**
+ * Very junky code and it must be fixed asap (this was an option to get the prototype up and working)
+ */
+connection.socket.on('responseData', (data) => {
+    const content = document.getElementById('content');
+    switch(data) {
+        case "Alerts Data": {
+            soundMode = true;
+            statsMode = false;
+            content.innerHTML = `
+            <h1>Preview</h1><br>
+            <div class="mainContainer">
+                <div class="current"></div>
+            </div>
+            `;
+            break;
+        }
+        case "USER_SETUP": {
+            soundMode = false;
+            statsMode = false;
+            content.innerHTML = `<h1>Enter username</h2>`
+            break;
+        }
+        case "TikTok Chat & Gifts Data": {
+            soundMode = false;
+            statsMode = true;
+            content.innerHTML = `<table class="splitchattable">
+            <tr>
+                <td>
+                    <div class="chatcontainer">
+                        <h3 class="containerheader">
+                        Live Chat
+                        <a href="#" onclick="generateOverlay()">Generate Overlay URL</a>
+                        </h3>
+                    </div>
+                    <div class="messages-received"></div>
+                </td>
+                <td>
+                    <div class="giftcontainer">
+                        <h3 class="containerheader">
+                        Gifts
+                        <a href="#" onclick="generateOverlay()">Generate Overlay URL</a></h3>
+                    </div>
+                    <div class="gifts-received"></div>
+                </td>
+            </tr>
+        </table>
+        <div style="margin-top: 1px; background-color: #121212; padding: 10px; border-radius: 5px;">
+            <h2 style="color: white;">Stream statistics</h3>
+            <div id="roomStats">Waiting for data..</div>
+        </div>`;
+            break;
+        }
+    }
+});
 
 
 let Config = {
@@ -137,6 +154,13 @@ let Config = {
                 connection.connect(Config["uniqueId"], {enableExtendedGiftInfo: true})
                     .then(state => {
                         Logger.INFO("Connected to roomId %s", state["roomId"])
+
+                        // reset stats
+                        viewerCount = 0;
+                        likeCount = 0;
+                        diamondsCount = 0;
+                        updateRoomStats();
+
                         connection.on("subscribe", (data) => {
 
                             if (!Config["enabled"]["subscribe"]) {
@@ -155,11 +179,20 @@ let Config = {
                             if(soundMode) announcement.sound();
                         
                         })
+
+                        // viewer stats
+                        connection.on('roomUser', (msg) => {
+                            if (typeof msg.viewerCount === 'number') {
+                                viewerCount = msg.viewerCount;
+                                updateRoomStats();
+                            }
+                        })
                         
                         // like stats
                         connection.on('like', (msg) => {
                             if (typeof msg.totalLikeCount === 'number') {
                                 likeCount = msg.totalLikeCount;
+                                updateRoomStats();
                             }
                         
                             if (typeof msg.likeCount === 'number') {
@@ -344,20 +377,20 @@ function isPendingStreak(data) {
  * Add a new message to the chat container
  */
 function addChatItem(color, data, text, summarize) {
-    let container = $('.chatcontainer');
+    let container = $('.messages-received');
 
-    if (container.find('div').length > 25) {
-        container.find('div').slice(0, 1).remove();
-    }
+    // if (container.find('div').length > 25) {
+    //     container.find('div').slice(0, 1).remove();
+    // }
 
-    container.find('.temporary').remove();;
+    container.find('.temporary').remove();
 
     container.append(`
         <div class=${summarize ? 'temporary' : 'static'}>
-            <img class="miniprofilepicture" src="${data.profilePictureUrl}">
+            ${text === "joined" ? `<div style="margin-right: 5px; background-color: #282c34; width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; border-radius: 50%;"><img style="width: 60%; height: 60%;" src="./assets/svgs/entry.svg"></div>` : `<img class="profileIcon" src="${data.profilePictureUrl}">`}
             <span>
                 <b>${generateUsernameLink(data)}:</b> 
-                <span style="color:${color}">${sanitize(text)}</span>
+                <span class="message-text">${sanitize(text)}</span>
             </span>
         </div>
     `);
@@ -374,17 +407,14 @@ function addChatItem(color, data, text, summarize) {
  * Add a new gift to the gift container
  */
 function addGiftItem(data) {
-    let container = $('.giftcontainer');
+    let container = $('.gifts-received');
 
-    if (container.find('div').length > 200) {
-        container.find('div').slice(0, 100).remove();
-    }
 
     let streakId = data.userId.toString() + '_' + data.giftId;
 
     let html = `
         <div data-streakid=${isPendingStreak(data) ? streakId : ''}>
-            <img class="miniprofilepicture" src="${data.profilePictureUrl}">
+            <img class="profileIcon" src="${data.profilePictureUrl}">
             <span>
                 <b>${generateUsernameLink(data)}:</b> <span>${data.uniqueId}</span><br>
                 <div>

@@ -35,6 +35,7 @@ class TikTokConnectionWrapper extends EventEmitter {
 
         this.connection.on('error', (err) => {
             this.log(`Error event triggered: ${err.info}, ${err.exception}`);
+            // this.connect(true)
             console.error(err);
         })
     }

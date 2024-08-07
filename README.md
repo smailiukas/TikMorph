@@ -21,10 +21,18 @@
 
 1. Download a code editor like VSCode (this is a very important step)
 2. Install [Node.js](https://nodejs.org/) on your system
-3. Clone this repository or download and extract [this ZIP file](https://github.com/smailiukas/TikMorph/archive/refs/heads/main.zip)
+3. Clone this repository or download and extract [this ZIP file](https://github.com/isaackogan/TikMorph/archive/refs/heads/master.zip)
 4. Open a console/terminal in the root directory of the project
 5. Enter `npm install` to install all required dependencies
 6. Go to the public directory and change config.json uniqueId to yours or someone elses tiktok uniqueId without the @ so basically it should look like this "streamer" and not "@streamer"
 7. Enter `node server.js` to start the application server
 
 p.s if it doesn't load chats/gifts or alerts be sure to check the developer console for errors :)
+
+## Preview
+* At the moment I'm using TikTok colors (some are changed)
+![Alt text](./preview/chrome_4ltOjdMxvj.png "preview")
+
+### Patch 0.0.1
+* It still doesn't support generating overlays
+* Added Stream statistics to show total likes/earned from gifts/viewer counts

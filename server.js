@@ -42,10 +42,7 @@ io.on('connection', (socket) => {
         }
 
         // Redirect wrapper control events once
-        tiktokConnectionWrapper.once('connected', state => {
-            socket.emit('tiktokConnected', state)
-            console.log("Server tiktokConnected event")
-        });
+        tiktokConnectionWrapper.once('connected', state => socket.emit('tiktokConnected', state));
         tiktokConnectionWrapper.once('disconnected', reason => socket.emit('tiktokDisconnected', reason));
 
         // Notify client when stream ends
@@ -79,6 +76,9 @@ io.on('connection', (socket) => {
                 break;
             case 'alerts':
                 responseData = "Alerts Data";
+                break;
+            case "setup":
+                responseData = "USER_SETUP"
                 break;
             default:
                 responseData = "Unknown Data Type";
